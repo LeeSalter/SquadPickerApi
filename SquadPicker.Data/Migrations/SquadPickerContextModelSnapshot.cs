@@ -22,7 +22,6 @@ namespace SquadPicker.Data.Migrations
             modelBuilder.Entity("SquadPicker.Models.Formation", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Defenders")
@@ -47,7 +46,7 @@ namespace SquadPicker.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5eb1b188-e7fc-461b-b52b-85eba8f3896b"),
+                            Id = new Guid("088957d7-24a0-4535-9d0c-07b3cbba8be8"),
                             Defenders = 4,
                             Forwards = 2,
                             Goalkeepers = 1,
@@ -56,7 +55,7 @@ namespace SquadPicker.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("90fcf596-1885-457e-a414-9ecbef4ed6af"),
+                            Id = new Guid("29319481-0125-4cd8-b609-0e9b29d5a538"),
                             Defenders = 5,
                             Forwards = 2,
                             Goalkeepers = 1,
@@ -65,7 +64,7 @@ namespace SquadPicker.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b909326a-fe7b-450a-afaa-5e64af2ffbe3"),
+                            Id = new Guid("09a25e1c-945a-4450-b5df-e0184250050a"),
                             Defenders = 4,
                             Forwards = 3,
                             Goalkeepers = 1,
@@ -93,15 +92,10 @@ namespace SquadPicker.Data.Migrations
                     b.Property<bool>("Selected")
                         .HasColumnType("bit");
 
-                    b.Property<Guid?>("TeamId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Validity")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("TeamId");
 
                     b.ToTable("Players");
 
@@ -311,10 +305,9 @@ namespace SquadPicker.Data.Migrations
             modelBuilder.Entity("SquadPicker.Models.Team", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedDateUTC")
+                    b.Property<DateTime>("CreatedDateUtc")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid?>("FormationId")
@@ -332,10 +325,29 @@ namespace SquadPicker.Data.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("SquadPicker.Models.TeamPlayer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("TeamPlayers");
+                });
+
             modelBuilder.Entity("SquadPicker.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("PasswordHash")
@@ -352,22 +364,30 @@ namespace SquadPicker.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("SquadPicker.Models.Player", b =>
-                {
-                    b.HasOne("SquadPicker.Models.Team", null)
-                        .WithMany("Players")
-                        .HasForeignKey("TeamId");
-                });
-
             modelBuilder.Entity("SquadPicker.Models.Team", b =>
                 {
                     b.HasOne("SquadPicker.Models.Formation", "Formation")
-                        .WithMany()
+                        .WithMany("Teams")
                         .HasForeignKey("FormationId");
 
                     b.HasOne("SquadPicker.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Teams")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("SquadPicker.Models.TeamPlayer", b =>
+                {
+                    b.HasOne("SquadPicker.Models.Player", "Player")
+                        .WithMany("TeamPlayers")
+                        .HasForeignKey("PlayerId")
+                        .HasConstraintName("FK_TeamPlayers_Players")
+                        .IsRequired();
+
+                    b.HasOne("SquadPicker.Models.Team", "Team")
+                        .WithMany("TeamPlayers")
+                        .HasForeignKey("TeamId")
+                        .HasConstraintName("FK_TeamPlayers_Teams")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

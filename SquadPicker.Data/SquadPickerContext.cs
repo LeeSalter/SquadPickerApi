@@ -1,32 +1,35 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using SquadPicker.Models;
-using System;
 
 namespace SquadPicker.Data
 {
-    public class SquadPickerContext:DbContext
+    public partial class SquadPickerContext : DbContext
     {
-        private string _connectionString
-        {
-            get
-            {
-                //Obvs wouldn't leave this like this in Production. Add password to Secret Store in GCP.
-                return @"Data Source=34.105.223.175;Initial Catalog=db_squad_picker;User ID=sqlserver;Password=W0lver!ne;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;";
-            }
-        }
-
-        public SquadPickerContext(DbContextOptions<SquadPickerContext> options):base(options)
+        public SquadPickerContext()
         {
         }
 
-        public virtual DbSet<Player> Players { get; set; }   
+        public SquadPickerContext(DbContextOptions<SquadPickerContext> options)
+            : base(options)
+        {
+        }
+
         public virtual DbSet<Formation> Formations { get; set; }
+        public virtual DbSet<Player> Players { get; set; }
+        public virtual DbSet<TeamPlayer> TeamPlayers { get; set; }
         public virtual DbSet<Team> Teams { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<TeamPlayer> TeamPlayer { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer(_connectionString);
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=34.105.223.175;Initial Catalog=db_squad_picker;User ID=sqlserver;Password=W0lver!ne;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,32 +38,21 @@ namespace SquadPicker.Data
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Player>(entity =>
-            {
-                entity.HasIndex(e => e.TeamId);
-
-                entity.HasOne(d => d.Team)
-                    .WithMany(p => p.Players)
-                    .HasForeignKey(d => d.TeamId);
-            });
-
             modelBuilder.Entity<TeamPlayer>(entity =>
             {
-                entity.HasNoKey();
-
-                entity.ToTable("Team_Player");
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.Player)
-                    .WithMany(p => p.TeamPlayer)
+                    .WithMany(p => p.TeamPlayers)
                     .HasForeignKey(d => d.PlayerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Team_Player_Players");
+                    .HasConstraintName("FK_TeamPlayers_Players");
 
                 entity.HasOne(d => d.Team)
-                    .WithMany(p => p.TeamPlayer)
+                    .WithMany(p => p.TeamPlayers)
                     .HasForeignKey(d => d.TeamId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Team_Player_Teams");
+                    .HasConstraintName("FK_TeamPlayers_Teams");
             });
 
             modelBuilder.Entity<Team>(entity =>
@@ -70,8 +62,6 @@ namespace SquadPicker.Data
                 entity.HasIndex(e => e.UserId);
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.CreatedDateUtc).HasColumnName("CreatedDateUTC");
 
                 entity.HasOne(d => d.Formation)
                     .WithMany(p => p.Teams)
@@ -87,7 +77,7 @@ namespace SquadPicker.Data
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<Formation>().HasData(                
+            modelBuilder.Entity<Formation>().HasData(
                 new Formation
                 {
                     Id = Guid.NewGuid(),
@@ -291,7 +281,13 @@ namespace SquadPicker.Data
                     Position = Position.FORWARD,
                     Validity = "player-valid"
                 }
-                );            
+                );
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

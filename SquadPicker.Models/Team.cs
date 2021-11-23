@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace SquadPicker.Models
 {
-    public class Team
+    public partial class Team
     {
         public Team()
         {
-            Players = new HashSet<Player>();
-            TeamPlayer = new HashSet<TeamPlayer>();
+            TeamPlayers = new HashSet<TeamPlayer>();
         }
 
         public Guid Id { get; set; }
@@ -20,7 +17,6 @@ namespace SquadPicker.Models
 
         public virtual Formation Formation { get; set; }
         public virtual User User { get; set; }
-        public virtual ICollection<Player> Players { get; set; }
-        public virtual ICollection<TeamPlayer> TeamPlayer { get; set; }
+        public virtual ICollection<TeamPlayer> TeamPlayers { get; set; }
     }
 }

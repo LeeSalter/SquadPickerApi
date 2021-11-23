@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using SquadPicker.Data;
 using Microsoft.AspNetCore.Cors;
+using API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
@@ -49,26 +51,53 @@ namespace API.Controllers
             return player;
         }
 
+        [Authorize]
         [HttpPost]
-        [Route("api/[controller]/saveteam")]
-        public Team SaveTeam(Guid formationId, Guid userId, List<int> players)
+        [Route("saveteam")]
+        public Team SaveTeam([FromBody]TeamModel model)
         {
-            if (players == null)
-                throw new ArgumentNullException(nameof(players));
+            if (model.PlayerIds == null)
+                throw new ArgumentNullException(nameof(model.PlayerIds));
 
-            if (players.Count != 11)
-                throw new ArgumentException("A team must have 11 players", nameof(players));
+            if (model.PlayerIds.Count != 11)
+                throw new ArgumentException("A team must have 11 players", nameof(model.PlayerIds));
 
             Team team = new Team();
             team.Id = Guid.NewGuid();
-            team.User = _db.Users.Find(userId);
+            team.User = _db.Users.Find(model.UserId);
             team.CreatedDateUtc = DateTime.UtcNow;
-            team.Formation = _db.Formations.Find(formationId);                        
-
+            team.Formation = _db.Formations.Find(model.FormationId);
+            foreach (var id in model.PlayerIds)
+            {
+                TeamPlayer tp = new TeamPlayer
+                {
+                    TeamId = team.Id,
+                    PlayerId = id,
+                    Id = Guid.NewGuid()
+                };
+                team.TeamPlayers.Add(tp);
+            }
             _db.Teams.Add(team);
             _db.SaveChanges();
-
+            
             return team;
+        }
+
+        [HttpGet]
+        [Route("api/[controller]/teams/Id")]
+        public List<Player> GetTeam(Guid Id)
+        {
+            var squad = _db.Players;
+            var team = _db.TeamPlayers.Where(x => x.TeamId == Id).ToList();
+            if (team == null)
+                return squad.OrderBy(x => x.Position).ToList();
+
+            foreach(var tp in team)
+            {
+                squad.First(x => x.Id == tp.PlayerId).Selected = true;
+            }
+
+            return squad.OrderBy(x => x.Position).ToList();
         }
 
         private int GetNextId()

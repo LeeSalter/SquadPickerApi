@@ -11,7 +11,7 @@ namespace API.Services
     {
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
-        User GetById(int id);
+        User GetById(Guid id);
         User Create(string username, string password);
     }
 
@@ -48,7 +48,7 @@ namespace API.Services
             return _context.Users;
         }
 
-        public User GetById(int id)
+        public User GetById(Guid id)
         {
             return _context.Users.Find(id);
         }
@@ -62,6 +62,7 @@ namespace API.Services
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
             var user = new User();
+            user.Id = Guid.NewGuid();
             user.Username = username;
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;

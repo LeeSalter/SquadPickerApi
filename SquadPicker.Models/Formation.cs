@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace SquadPicker.Models
 {
-    public class Formation
+    public partial class Formation
     {
         public Formation()
         {
             Teams = new HashSet<Team>();
         }
-        
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Goalkeepers { get; set; }

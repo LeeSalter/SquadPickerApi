@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SquadPicker.Models
 {
     public partial class TeamPlayer
     {
+        public Guid Id { get; set; }
         public Guid TeamId { get; set; }
         public int PlayerId { get; set; }
 
