@@ -1,0 +1,16 @@
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Data.deps.json
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Data.runtimeconfig.json
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Data.runtimeconfig.dev.json
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Data.dll
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Data.pdb
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Models.dll
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\bin\Debug\netcoreapp3.1\SquadPicker.Models.pdb
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.csproj.AssemblyReference.cache
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.AssemblyInfoInputs.cache
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.AssemblyInfo.cs
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.csproj.CoreCompileInputs.cache
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.csproj.CopyComplete
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.dll
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.pdb
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.genruntimeconfig.cache
+C:\Users\lee.salter\source\repos\SquadPicker\SquadPicker.Data\obj\Debug\netcoreapp3.1\SquadPicker.Data.GeneratedMSBuildEditorConfig.editorconfig
