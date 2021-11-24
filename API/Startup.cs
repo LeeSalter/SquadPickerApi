@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using SquadPicker.Data;
 using System;
@@ -22,7 +23,7 @@ using System.Threading.Tasks;
 namespace API
 {
     public class Startup
-    {      
+    {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,7 +38,33 @@ namespace API
 
             services.AddDbContext<SquadPickerContext>(options =>
                 options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(setup =>
+            {
+                // Include 'SecurityScheme' to use JWT Authentication
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        { jwtSecurityScheme, Array.Empty<string>() }
+                    });
+
+            });
             services.AddCors(options =>
                 {
                     options.AddPolicy(name: "CorsPolicy",
@@ -120,7 +147,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });                       
+            });
         }
     }
 }
