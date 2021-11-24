@@ -1,35 +1,42 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SquadPicker.Data;
 using SquadPicker.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FormationController : ControllerBase
     {
-        private readonly SquadPickerContext _db;
-        public FormationController(SquadPickerContext db)
+        private readonly IFormationService _formationService;
+        public FormationController(IFormationService formationService)
         {
-            _db = db;
+            _formationService = formationService;
         }
 
         [HttpGet]
-        public List<Formation> Formations()
+        public ActionResult<List<Formation>> Formations()
         {
-            return _db.Formations.ToList();
+            var response = _formationService.GetFormations();
+            if (response.Success && response.Payload!=null)
+                return response.Payload;
+
+            return NoContent();
         }
 
         [Route("api/[controller]/id")]
         [HttpGet]
-        public Formation GetById(Guid id)
+        public ActionResult<Formation> GetById(Guid id)
         {
-            return _db.Formations.SingleOrDefault(x => x.Id == id);
+            var response = _formationService.GetFormation(id);
+            if (response.Success)
+                return response.Payload;
+
+            return NoContent();
         }
     }
 }

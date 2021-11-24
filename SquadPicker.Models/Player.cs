@@ -16,6 +16,7 @@ namespace SquadPicker.Models
         public bool Selected { get; set; }
         public string Availability { get; set; }
         public string Validity { get; set; }
+        public bool Deleted { get; set; }
 
         public virtual ICollection<TeamPlayer> TeamPlayers { get; set; }
     }
