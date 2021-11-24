@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SquadPicker.Data;
 
 namespace SquadPicker.Data.Migrations
 {
     [DbContext(typeof(SquadPickerContext))]
-    partial class SquadPickerContextModelSnapshot : ModelSnapshot
+    [Migration("20211124180630_AddForeignKeyFromPlayerToUser")]
+    partial class AddForeignKeyFromPlayerToUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

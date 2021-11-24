@@ -62,7 +62,7 @@ namespace API
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement
                     {
                         { jwtSecurityScheme, Array.Empty<string>() }
-                    });
+               });
 
             });
             services.AddCors(options =>
@@ -121,6 +121,7 @@ namespace API
             });
 
             // configure DI for application services
+            services.AddHttpContextAccessor();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IFormationService, FormationService>();

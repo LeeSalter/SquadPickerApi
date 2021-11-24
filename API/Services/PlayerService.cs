@@ -1,29 +1,33 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Http;
 using SquadPicker.Data;
 using SquadPicker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace API.Services
 {
     public class PlayerService:IPlayerService
     {
         private readonly SquadPickerContext _db;
-        public PlayerService(SquadPickerContext db)
+        private readonly Guid _userId;
+        public PlayerService(SquadPickerContext db, IHttpContextAccessor context)
         {
             _db = db;
+            _userId=Guid.Parse(context.HttpContext.User.Identity.Name);
+
         }
 
         public List<Player> GetPlayers()
         {
-            return _db.Players.Where(x => !x.Deleted).OrderBy(x => x.Position).ToList();
+            return _db.Players.Where(x => !x.Deleted && x.UserId== _userId).OrderBy(x => x.Position).ToList();
         }
 
         public DbResponse<Player> AddPlayer(string name, Position position)
         {
             var player = new Player();
+            player.UserId = _userId;
             player.Id = GetNextId();
             player.Name = name;
             player.Position = position;
@@ -36,7 +40,7 @@ namespace API.Services
             }
             catch(Exception ex)
             {
-                //Log the exception.
+                //TODO: Log the exception.
                 return new DbResponse<Player>(false, ex.Message, null);
             }
 

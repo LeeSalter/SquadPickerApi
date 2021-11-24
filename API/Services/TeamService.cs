@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Http;
 using SquadPicker.Data;
 using SquadPicker.Models;
 using System;
@@ -10,10 +11,12 @@ namespace API.Services
 {
     public class TeamService : ITeamService
     {
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly SquadPickerContext _db;
-        public TeamService(SquadPickerContext db)
+        public TeamService(SquadPickerContext db, IHttpContextAccessor context)
         {
             _db = db;
+            _contextAccessor = context;
         }
 
         public DbResponse<Team> CreateTeam(TeamModel model)
@@ -24,9 +27,10 @@ namespace API.Services
             if (model.PlayerIds.Count != 11)
                 throw new ArgumentException("A team must have 11 players", nameof(model.PlayerIds));
 
+            var userId = Guid.Parse(_contextAccessor.HttpContext.User.Identity.Name);
             Team team = new Team();
             team.Id = Guid.NewGuid();
-            team.User = _db.Users.Find(model.UserId);
+            team.User = _db.Users.Find(userId);
             team.CreatedDateUtc = DateTime.UtcNow;
             team.Formation = _db.Formations.Find(model.FormationId);
             foreach (var id in model.PlayerIds)

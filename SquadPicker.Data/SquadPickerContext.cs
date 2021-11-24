@@ -111,175 +111,200 @@ namespace SquadPicker.Data
                     Id = 1,
                     Name = "Jordan Pickford",
                     Position = Position.GOALKEEPER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 2,
                     Name = "Sam Johnstone",
                     Position = Position.GOALKEEPER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 3,
                     Name = "Aaron Ramsdale",
                     Position = Position.GOALKEEPER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 4,
                     Name = "Trent Alexander-Arnold",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 5,
                     Name = "Ben Chilwell",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 6,
                     Name = "Conor Coady",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 7,
                     Name = "Reece James",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 8,
                     Name = "Harry Maguire",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 9,
                     Name = "Tyrone Mings",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 10,
                     Name = "Luke Shaw",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 11,
                     Name = "John Stones",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 12,
                     Name = "Kyle Walker",
                     Position = Position.DEFENDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 13,
                     Name = "Jude Bellingham",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 14,
                     Name = "Jordan Henderson",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 15,
                     Name = "Mason Mount",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 16,
                     Name = "Kalvin Phillips",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 17,
                     Name = "Declan Rice",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 18,
                     Name = "James Ward-Prowse",
                     Position = Position.MIDFIELDER,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 19,
                     Name = "Tammy Abraham",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 20,
                     Name = "Phil Foden",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 21,
                     Name = "Jack Grealish",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 22,
                     Name = "Harry Kane",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 23,
                     Name = "Bukayo Saka",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 24,
                     Name = "Marcus Rashford",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 },
                 new Player
                 {
                     Id = 25,
                     Name = "Raheem Sterling",
                     Position = Position.FORWARD,
-                    Validity = "player-valid"
+                    Validity = "player-valid",
+                    UserId = Guid.Parse("4BE180EE-1AF1-4A19-A5F4-8105AD3EF124")
                 }
                 );
 
