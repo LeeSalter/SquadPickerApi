@@ -21,7 +21,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Player>> GetTeam(Guid id)
+        public ActionResult<LoadTeamModel> GetTeam(Guid id)
         {
             var response = _teamService.GetTeam(id);
             if (response.Success)
@@ -31,9 +31,20 @@ namespace API.Controllers
             
         }
 
+        [HttpGet]
+        [Route("all")]
+        public ActionResult<List<Team>> GetTeams()
+        {
+            var response = _teamService.GetTeams();
+            if (response.Success)
+                return response.Payload;
+
+            return NoContent();
+        }
+
         [HttpPost]
         [Route("saveteam")]
-        public ActionResult<Team> SaveTeam([FromBody] TeamModel model)
+        public ActionResult<Team> SaveTeam([FromBody] SaveTeamModel model)
         {
             var response = _teamService.CreateTeam(model);
             if (response.Success)

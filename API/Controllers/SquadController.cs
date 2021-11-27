@@ -1,4 +1,5 @@
-﻿using API.Services;
+﻿using API.Models;
+using API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -35,18 +36,31 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("createplayer")]
-        public ActionResult<Player> CreatePlayer(string name, Position position)
+        public ActionResult<Player> CreatePlayer([FromBody]CreatePlayerModel model)
         {
-            if (string.IsNullOrEmpty(name))
+            if (model == null)
+                throw new ArgumentNullException(nameof(model));
+            if (string.IsNullOrEmpty(model.PlayerName))
             {
-                throw new ArgumentNullException(nameof(name));
+                throw new ArgumentException("Players name cannot be empty");
             }
 
-            var response = _playerService.AddPlayer(name, position);
+            var response = _playerService.AddPlayer(model.PlayerName, model.Position);
             if (response.Success)
                 return response.Payload;
 
             return NoContent();
+        }
+
+        [HttpDelete]
+        [Route("deleteplayer")]
+        public ActionResult DeletePlayer(int id)
+        {
+            var response = _playerService.RemovePlayer(id);
+            if (response.Success)
+                return Ok();
+
+            return BadRequest();
         }
     }
 }

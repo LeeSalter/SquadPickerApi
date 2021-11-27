@@ -14,7 +14,7 @@ namespace SquadPicker.Models
 
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required] //In a production system, this would be a many-to-many relationship. So a Player_User lookup table would be used.
         [ForeignKey("User")]
         public Guid UserId { get; set; }
         [Required]

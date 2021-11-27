@@ -28,7 +28,6 @@ namespace API.Services
         {
             var player = new Player();
             player.UserId = _userId;
-            player.Id = GetNextId();
             player.Name = name;
             player.Position = position;
             player.Deleted = false;

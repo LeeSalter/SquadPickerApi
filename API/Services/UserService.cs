@@ -17,7 +17,7 @@ namespace API.Services
 
     public class UserService : IUserService
     {
-        private SquadPickerContext _context;
+        private readonly SquadPickerContext _context;
 
         public UserService(SquadPickerContext context)
         {
