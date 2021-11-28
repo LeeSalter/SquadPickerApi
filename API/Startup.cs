@@ -70,7 +70,8 @@ namespace API
                     options.AddPolicy(name: "CorsPolicy",
                         builder =>
                         {
-                            builder.WithOrigins("http://localhost:3000")
+                            builder.WithOrigins("http://localhost:3000",
+                                "https://squad-picker-331911.ew.r.appspot.com")
                             .AllowAnyHeader()
                             .AllowAnyMethod()
                             .AllowCredentials();
