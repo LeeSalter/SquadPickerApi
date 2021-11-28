@@ -59,7 +59,7 @@ namespace API.Services
 
         public DbResponse<LoadTeamModel> GetTeam(Guid id)
         {
-            var squad = _db.Players;
+            var squad = _db.Players.Where(x=>x.UserId==_userId);
             var team = _db.Teams.Include(x => x.Formation).FirstOrDefault(x => x.Id == id);
             var players = _db.TeamPlayers.Where(x => x.TeamId == id).ToList();
             if (team == null)
@@ -78,7 +78,9 @@ namespace API.Services
 
             var model = new LoadTeamModel();
             model.Players= squad.OrderBy(x => x.Position).ToList();
-            model.Formation = team.Formation;
+            model.Formation = team.Formation
+                
+                ;
 
             return new DbResponse<LoadTeamModel>(true, string.Empty,
                         model);
