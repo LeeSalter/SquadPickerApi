@@ -10,6 +10,7 @@ namespace SquadPicker.Models
         public Player()
         {
             TeamPlayers = new HashSet<TeamPlayer>();
+            Validity = "player-valid";
         }
 
         [Key]
