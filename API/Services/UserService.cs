@@ -1,4 +1,5 @@
-﻿using SquadPicker.Data;
+﻿using API.Models;
+using SquadPicker.Data;
 using SquadPicker.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace API.Services
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
         User GetById(Guid id);
-        User Create(string username, string password);
+        DbResponse<User> Create(string username, string password);
     }
 
     public class UserService : IUserService
@@ -53,11 +54,15 @@ namespace API.Services
             return _context.Users.Find(id);
         }
 
-        public User Create(string username, string password)
+        public DbResponse<User> Create(string username, string password)
         {
             // validation
             if (string.IsNullOrWhiteSpace(password))
                 throw new ArgumentNullException(nameof(password), "Password is required");
+
+            //check that username does not already exist.
+            if (_context.Users.FirstOrDefault(x => x.Username == username) != null)
+                return new DbResponse<User>(false, "Username already exists", null);
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -70,7 +75,7 @@ namespace API.Services
             _context.Users.Add(user);
             _context.SaveChanges();
 
-            return user;
+            return new DbResponse<User>(true,"",user);
         }
 
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)

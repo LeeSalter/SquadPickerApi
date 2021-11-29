@@ -24,8 +24,13 @@ namespace API.Controllers
             try
             {
                 // create user
-                _userService.Create(model.Username, model.Password);
-                return Ok();
+                var response = _userService.Create(model.Username, model.Password);
+                if (response.Success)
+                {
+                    return Ok();
+                }
+
+                return Conflict("A user with that name already exists.");
             }
             catch (Exception ex)
             {
